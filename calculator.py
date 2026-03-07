@@ -6,6 +6,13 @@ def main(page: ft.Page):
     result = ft.Text(value = '0')
 
     page.add(
+        ft.Container(
+            width = 350,
+            bgcolor= ft.Colors.BLACK,
+            border_radius = ft.BorderRadius.all(20),
+            padding= 20,
+            content =ft.Column(
+                controls = [
         ft.Row(controls = [result]),
         ft.Row(controls = [
             ft.Button("AC"),
@@ -36,7 +43,10 @@ def main(page: ft.Page):
             ft.Button("."),
             ft.Button("=")
         ])
+                ]
+
         
-            )
+        
+            )))
 if __name__ == "__main__":
     ft.run(main)
