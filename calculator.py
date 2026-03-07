@@ -1,9 +1,35 @@
+from dataclasses import field
+
 import flet as ft
 
 
+@ft.control
+class CalcButton(ft.Button):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        expand = 1
+
+
+@ft.control
+class DigitButton(CalcButton):
+    bgcolor: ft.Colors = ft.Colors.WHITE_24
+    color: ft.Colors = ft.Colors.WHITE
+
+
+@ft.control
+class ActionButton(CalcButton):
+    bgcolor: ft.Colors = ft.Colors.ORANGE
+    color: ft.Colors.WHITE
+
+
+@ft.control
+class ExtraActionButton(CalcButton):
+    bgcolor: ft.Colors = ft.Colors.BLUE_GREY_100
+    color: ft.Colors.BLACK
+
 def main(page: ft.Page):
     page.title = "Calculator"
-    result = ft.Text(value = '0')
+    result = ft.Text(value = '0', color = ft.Colors.WHITE, size = 20)
 
     page.add(
         ft.Container(
@@ -15,35 +41,35 @@ def main(page: ft.Page):
                 controls = [
         ft.Row(controls = [result]),
         ft.Row(controls = [
-            ft.Button("AC"),
-            ft.Button("+/-"),
-            ft.Button("%"),
-            ft.Button("/"),
+            ExtraActionButton("AC"),
+            ExtraActionButton("+/-"),
+            ExtraActionButton("%"),
+            ActionButton("/"),
         ]),
         ft.Row(controls = [
-            ft.Button("7"),
-            ft.Button("8"),
-            ft.Button("9"),
-            ft.Button("*")
+            DigitButton("7"),
+            DigitButton("8"),
+            DigitButton("9"),
+            ActionButton("*")
         ]),
         ft.Row(controls = [
-            ft.Button("4"),
-            ft.Button("5"),
-            ft.Button("6"),
-            ft.Button("-")
+            DigitButton("4"),
+            DigitButton("5"),
+            DigitButton("6"),
+            ActionButton("-")
         ]),
         ft.Row(controls = [
-            ft.Button("1"),
-            ft.Button("2"),
-            ft.Button("3"),
-            ft.Button("+")
+            DigitButton("1"),
+            DigitButton("2"),
+            DigitButton("3"),
+            ActionButton("+")
         ]),
         ft.Row(controls = [
-            ft.Button("0"),
-            ft.Button("."),
-            ft.Button("=")
+            DigitButton("0", expand = 2),
+            DigitButton("."),
+            ActionButton("=")
         ])
-                ]
+        ]
 
         
         
