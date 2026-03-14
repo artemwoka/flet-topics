@@ -31,6 +31,7 @@ class ExtraActionButton(CalcButton):
 class CalculatorApp(ft.Container):
 
     def init(self):
+        self.reset()
         self.width = 350
         self.bgcolor = ft.Colors.BLACK
         self.border_radius = ft.BorderRadius.all(20)
@@ -91,6 +92,11 @@ class CalculatorApp(ft.Container):
                 self.result.value = "1"
             else:
                 self.result.value += "1"
+    
+    def reset(self):
+        self.operator = '+'
+        self.operand1 = 0
+        self.new_operand = True
         
 
             
