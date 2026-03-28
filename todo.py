@@ -16,7 +16,7 @@ class Task(ft.Column):
         self.display_view = ft.Row(
             alignment = ft.MainAxisAlignment.CENTER,
             vertical_alignment = ft.CrossAxisAlignment.CENTER,
-            controls[
+            controls=[
                 self.display_task,
                 ft.Row(
                     spacing = 0,
@@ -35,16 +35,17 @@ class Task(ft.Column):
                 ),
             ],
         )
+        
 
         self.edit_view = ft.Row(
-            visible = True,
+            visible = False,
             alignment = ft.MainAxisAlignment.SPACE_BETWEEN,
             vertical_alignment = ft.CrossAxisAlignment.CENTER,
             controls = [
                 self.edit_name,
                 ft.IconButton(
                     icon = ft.Icons.DONE_OUTLINE_OUTLINED,
-                    icon_color = ft.colors.GREEN,
+                    icon_color = ft.Colors.GREEN,
                     tooltip = "Зберегти",
                     on_click = self.save_clicked,
                 ),
@@ -92,10 +93,14 @@ class TodoApp(ft.Column):
 
 
     def add_clicked(self, e):
-        self.tasks_view.controls.append(ft.Checkbox(label=self.new_task.value))
+        task = Task(task_name = self.new_task.value, on_task_delete = self.delete_task)
+        self.tasks_view.controls.append(task)
         self.new_task.value = ""
         self.update()
 
+    def delete_task(self, task):
+        self.tasks_view.controls.remove(task)
+        self.update()
 
 def main(page: ft.Page):
     
