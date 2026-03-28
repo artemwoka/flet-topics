@@ -37,9 +37,11 @@ class CalculatorApp(ft.Container):
         self.border_radius = ft.BorderRadius.all(20)
         self.padding = 20
         self.result = ft.Text(value="0", color=ft.Colors.WHITE, size=20)
+        self.expression = ft.Text(value=" ", color=ft.Colors.WHITE, size=15)
 
         self.content = ft.Column(
             controls=[
+                ft.Row(controls=[self.expression], alignment=ft.MainAxisAlignment.END),
                 ft.Row(controls=[self.result], alignment=ft.MainAxisAlignment.END),
                 ft.Row(
                     controls=[
@@ -87,20 +89,25 @@ class CalculatorApp(ft.Container):
         data = event.control.content
         if self.result.value == "Error" or data == "AC":
             self.result.value = "0"
+            self.expression.value = " "
             self.reset()
 
         elif data in ("1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "."):
             if self.result.value == "0" or self.new_operand:
                 self.result.value = data
                 self.new_operand = False
+
             else:
                 self.result.value = self.result.value + data
+
+             
         
         elif data in ("+", "-", "*", "/"):
             self.result.value = self.calculate(
                 self.operand1, float(self.result.value), self.operator
             )
             self.operator = data
+            self.expression.value = str(self.operand1) + " " + self.operator
             if self.result.value == "Error":
                 self.operand1 = 0
             else:
@@ -112,6 +119,7 @@ class CalculatorApp(ft.Container):
                 self.operand1, float(self.result.value), self.operator
             )
             self.reset()
+            self.expression.value = self.expression.value + " =" 
         
         elif data == "%":
             self.result.value = float(self.result.value) / 100
@@ -122,6 +130,8 @@ class CalculatorApp(ft.Container):
                 self.result.value = "-" + self.result.value
             elif float(self.result.value) < 0:
                 self.result.value = str(abs(float(self.result.value)))
+
+        
                 
         self.update()   
 
